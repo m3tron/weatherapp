@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import CurrentWeather from "./components/CurrentWeather";
 
-function App() {
+const App = () => {
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
+  const [metric, setMetric] = useState(true);
+
+  const getLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        setLatitude(position.coords.latitude);
+        setLongitude(position.coords.longitude);
+        console.log(position.coords.latitude, position.coords.longitude);
+      });
+    } else {
+      console.log("not permitted");
+    }
+  };
+
+  const getWeather = async () => {
+    const { data } = await axios.get(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=`
+    );
+    setWeatherData(data);
+  };
+
+  useEffect(() => {
+    getLocation();
+    getWeather();
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <CurrentWeather weatherData={weatherData} />
     </div>
   );
-}
+};
 
 export default App;
