@@ -8,12 +8,14 @@ const App = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [metric, setMetric] = useState(true);
 
-  const getLocation = () => {
+  const { REACT_APP_WEATHER_API } = process.env;
+
+  const getLocation = async () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         setLatitude(position.coords.latitude);
         setLongitude(position.coords.longitude);
-        console.log(position.coords.latitude, position.coords.longitude);
+        console.log(position);
       });
     } else {
       console.log("not permitted");
@@ -22,7 +24,7 @@ const App = () => {
 
   const getWeather = async () => {
     const { data } = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=`
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${REACT_APP_WEATHER_API}`
     );
     setWeatherData(data);
   };
@@ -34,7 +36,7 @@ const App = () => {
 
   return (
     <div>
-      <CurrentWeather weatherData={weatherData} />
+      {!latitude ? <>Loading</> : <CurrentWeather weatherData={weatherData} />}
     </div>
   );
 };
