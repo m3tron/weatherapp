@@ -1,42 +1,25 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import CurrentWeather from "./components/CurrentWeather";
+import Weather from "./components/Weather";
 
 const App = () => {
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
-  const [weatherData, setWeatherData] = useState(null);
-  const [metric, setMetric] = useState(true);
+  const [location, setLocation] = useState();
 
-  const { REACT_APP_WEATHER_API } = process.env;
+  //const [metric, setMetric] = useState(true);
 
-  const getLocation = async () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(position => {
-        setLatitude(position.coords.latitude);
-        setLongitude(position.coords.longitude);
-        console.log(position);
-      });
-    } else {
-      console.log("not permitted");
-    }
-  };
-
-  const getWeather = async () => {
-    const { data } = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${REACT_APP_WEATHER_API}`
-    );
-    setWeatherData(data);
-  };
+  const defaultLocation = { lat: 43.65107, lon: -79.347015 };
 
   useEffect(() => {
-    getLocation();
-    getWeather();
+    navigator.geolocation.getCurrentPosition(position => {
+      setLocation({
+        lat: position.coords.latitude,
+        lon: position.coords.longitude,
+      });
+    });
   }, []);
 
   return (
-    <div>
-      {!latitude ? <>Loading</> : <CurrentWeather weatherData={weatherData} />}
+    <div className="bg-slate-700">
+      <Weather location={!location ? defaultLocation : location} />
     </div>
   );
 };
