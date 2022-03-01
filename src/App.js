@@ -18,7 +18,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="bg-slate-700">
+    <div className="bg-slate-700 h-screen">
       <Weather location={!location ? defaultLocation : location} />
     </div>
   );

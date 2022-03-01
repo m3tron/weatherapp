@@ -4,7 +4,10 @@ import CurrentWeather from "./CurrentWeather";
 
 const Weather = ({ location }) => {
   const [weatherData, setWeatherData] = useState();
+  // const [forecastData, setForecastData] = useState();
 
+  const date = new Date();
+  console.log(date);
   useEffect(() => {
     const getWeather = async () => {
       const { data } = await axios.get(
@@ -13,9 +16,19 @@ const Weather = ({ location }) => {
       setWeatherData(data);
     };
 
-    if (location.lat) getWeather();
-  }, [location]);
+    // const getForecast = async () => {
+    //   const { data } = await axios.get(
+    //     `https://api.openweathermap.org/data/2.5/onecall?lat=${location.lat}&lon=${location.lon}&exclude=current,minutely&units=metric&appid=${process.env.REACT_APP_WEATHER_API}`
+    //   );
+    //   setForecastData(data);
+    // };
 
+    if (location.lat) {
+      getWeather();
+      // getForecast();
+    }
+  }, [location]);
+  // console.log(forecastData);
   return (
     <div>{weatherData && <CurrentWeather weatherData={weatherData} />}</div>
   );
