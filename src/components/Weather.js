@@ -6,8 +6,6 @@ const Weather = ({ location }) => {
   const [weatherData, setWeatherData] = useState();
   // const [forecastData, setForecastData] = useState();
 
-  const date = new Date();
-  console.log(date);
   useEffect(() => {
     const getWeather = async () => {
       const { data } = await axios.get(
