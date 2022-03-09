@@ -44,7 +44,9 @@ const CurrentWeather = ({ weatherData }) => {
         </div>
         <div className="flex justify-between">
           <span>
-            &#8593;{weatherData.main.temp_max.toFixed(1)}&#x2103; / &#8595;
+            <i className="fa-solid fa-arrow-up mr-1" />
+            {weatherData.main.temp_max.toFixed(1)}&#x2103; /{" "}
+            <i className="fa-solid fa-arrow-down mr-1" />
             {weatherData.main.temp_min.toFixed(1)}&#x2103;
           </span>
           <span>{weatherData.name}</span>
