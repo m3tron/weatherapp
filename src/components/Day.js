@@ -42,7 +42,7 @@ const Day = ({ daily }) => {
         </div>
       </div>
 
-      <div className={!open && "hidden"}>
+      <div className={!open ? "hidden" : undefined}>
         <div className={"grid grid-cols-2 grid-rows-4"}>
           <span>Wind</span>
           <span>{(daily.wind_speed * (3600 / 1000)).toFixed(1)} km/h</span>

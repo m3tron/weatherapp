@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import SearchBar from "./components/SearchBar";
 
 ChartJS.register(
   CategoryScale,
@@ -39,6 +40,7 @@ const App = () => {
 
   return (
     <div className="bg-slate-700 pb-4">
+      <SearchBar setLocation={setLocation} />
       <Weather location={!location ? defaultLocation : location} />
     </div>
   );

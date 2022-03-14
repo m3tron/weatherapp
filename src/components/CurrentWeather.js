@@ -13,13 +13,6 @@ const CurrentWeather = ({ weatherData }) => {
     hour12: true,
   });
 
-  const moreDetails = (title, detail) => (
-    <div className="flex flex-col text-center">
-      <span>{title}</span>
-      <span>{detail}</span>
-    </div>
-  );
-
   return (
     <div className="text-white flex flex-col p-4">
       <div className="flex flex-col">
@@ -50,29 +43,6 @@ const CurrentWeather = ({ weatherData }) => {
             {weatherData.main.temp_min.toFixed(1)}&#x2103;
           </span>
           <span>{weatherData.name}</span>
-        </div>
-      </div>
-      <div className="flex flex-col mt-12">
-        <span className="underline underline-offset-2 mb-2 text-center">
-          More Details
-        </span>
-        <div className="flex justify-evenly">
-          {moreDetails("Humidity", `${weatherData.main.humidity} %`)}
-          {moreDetails("Pressure", `${weatherData.main.pressure / 10} kPa`)}
-        </div>
-        <div className="flex justify-evenly">
-          {moreDetails(
-            "Wind Speed",
-            `${(weatherData.wind.speed * (3600 / 1000)).toFixed(1)} km/h`
-          )}
-          {moreDetails(
-            "Wind Gust",
-            `${
-              weatherData.wind.gust
-                ? (weatherData.wind.gust * (3600 / 1000)).toFixed(1)
-                : "---"
-            } km/h`
-          )}
         </div>
       </div>
     </div>

@@ -2,8 +2,10 @@ import Card from "./Card";
 import { Line } from "react-chartjs-2";
 
 const HourlyWeather = ({ hourlyData }) => {
+  const fontColor = "#ffffff";
+
   const data = {
-    labels: hourlyData.map(hourly =>
+    labels: hourlyData.slice(1, 25).map(hourly =>
       new Date(hourly.dt * 1000).toLocaleTimeString("en-US", {
         hour12: true,
         hour: "numeric",
@@ -11,8 +13,8 @@ const HourlyWeather = ({ hourlyData }) => {
     ),
     datasets: [
       {
-        data: hourlyData.map(hourly => hourly.temp.toFixed(0)),
-        borderColor: "#fff",
+        data: hourlyData.slice(1, 25).map(hourly => hourly.temp.toFixed(0)),
+        borderColor: fontColor,
         tension: 0.1,
         pointRadius: 0,
       },
@@ -20,22 +22,30 @@ const HourlyWeather = ({ hourlyData }) => {
   };
 
   const options = {
+    scales: {
+      x: {
+        grid: { display: false, borderColor: fontColor },
+        ticks: { color: fontColor },
+      },
+      y: {
+        grid: { display: false, borderColor: fontColor },
+        ticks: { color: fontColor },
+        grace: 1,
+      },
+    },
+    responsive: true,
     plugins: {
       legend: false,
       tooltip: false,
-      backgroundColor: "rgba(0, 0, 0, 0.1)",
-      color: "#000000",
     },
   };
 
   return (
     <Card>
-      <Line
-        className="bg-slate-500 rounded-lg"
-        datasetIdKey="id"
-        data={data}
-        options={options}
-      />
+      <span className="text-sm underline underline-offset-4">
+        Hourly Forecast
+      </span>
+      <Line data={data} options={options} />
     </Card>
   );
 };

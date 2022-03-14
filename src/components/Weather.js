@@ -3,6 +3,7 @@ import axios from "axios";
 import CurrentWeather from "./CurrentWeather";
 import HourlyWeather from "./HourlyWeather";
 import DailyWeather from "./DailyWeather";
+import Details from "./Details";
 
 const Weather = ({ location }) => {
   const [weatherData, setWeatherData] = useState();
@@ -30,15 +31,16 @@ const Weather = ({ location }) => {
   }, [location]);
 
   return (
-    <>
+    <div className="md:w-[768px] md:mx-auto">
       <div>{weatherData && <CurrentWeather weatherData={weatherData} />}</div>
+      <div>{weatherData && <Details weatherData={weatherData} />}</div>
       <div>
         {forecastData && <HourlyWeather hourlyData={forecastData.hourly} />}
       </div>
       <div>
         {forecastData && <DailyWeather dailyData={forecastData.daily} />}
       </div>
-    </>
+    </div>
   );
 };
 
