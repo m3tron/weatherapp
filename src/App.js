@@ -39,7 +39,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="bg-slate-700 pb-4">
+    <div className="bg-gradient-to-br bg-fixed from-sky-500 to-indigo-500 pb-4">
       <SearchBar setLocation={setLocation} />
       <Weather location={!location ? defaultLocation : location} />
     </div>
