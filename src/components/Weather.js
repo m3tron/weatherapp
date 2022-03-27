@@ -5,7 +5,7 @@ import HourlyWeather from "./HourlyWeather";
 import DailyWeather from "./DailyWeather";
 import Details from "./Details";
 
-const Weather = ({ location }) => {
+const Weather = ({ location, setDefaultLocation }) => {
   const [weatherData, setWeatherData] = useState();
   const [forecastData, setForecastData] = useState();
 
@@ -32,7 +32,14 @@ const Weather = ({ location }) => {
 
   return (
     <div className="md:w-[768px] md:mx-auto">
-      <div>{weatherData && <CurrentWeather weatherData={weatherData} />}</div>
+      <div>
+        {weatherData && (
+          <CurrentWeather
+            weatherData={weatherData}
+            setDefaultLocation={setDefaultLocation}
+          />
+        )}
+      </div>
       <div>{weatherData && <Details weatherData={weatherData} />}</div>
       <div>
         {forecastData && <HourlyWeather hourlyData={forecastData.hourly} />}

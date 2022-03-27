@@ -90,7 +90,9 @@ const Day = ({ daily }) => {
         </div>
       </div>
 
-      <i className={`fa-solid fa-chevron-${open ? "up" : "down"}`}></i>
+      <i
+        className={`fa-solid fa-chevron-up ${open ? undefined : "rotate-180"}`}
+      ></i>
       <hr className="mt-2" />
     </div>
   );

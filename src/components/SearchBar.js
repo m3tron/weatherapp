@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-const SearchBar = ({ setLocation }) => {
+const SearchBar = ({ setLocation, favorites }) => {
   const [search, setSearch] = useState("");
   const [locationList, setLocationList] = useState([]);
   const [open, setOpen] = useState(false);
@@ -35,9 +35,14 @@ const SearchBar = ({ setLocation }) => {
         }}
       />
       {open && locationList && (
-        <div className="flex flex-col items-center bg-white rounded-xl">
+        <div
+          className={`flex flex-col items-center bg-white rounded-xl overflow-hidden transition-all ease-in-out duration-500 ${
+            open ? undefined : " h-0"
+          }`}
+        >
           {locationList.map(location => (
             <span
+              key={`${location.lat},${location.lon}`}
               className="hover:bg-slate-400 w-full text-center cursor-pointer"
               onClick={e => {
                 e.preventDefault();

@@ -17,8 +17,13 @@ const Details = ({ weatherData }) => {
             <span>
               <i className="fa-solid fa-wind text-5xl" />
             </span>
-            <span>
-              {(weatherData.wind.speed * (3600 / 1000)).toFixed(1)} km/h
+            <span className="flex">
+              <span className="mr-1">
+                {(weatherData.wind.speed * (3600 / 1000)).toFixed(1)} km/h
+              </span>
+              <div style={{ transform: `rotate(${weatherData.wind.deg}deg)` }}>
+                <i className="fa-solid fa-circle-up" />
+              </div>
             </span>
           </div>
           <div className="flex flex-col space-y-4">
