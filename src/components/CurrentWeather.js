@@ -1,6 +1,6 @@
 import { setDefault } from "../storage";
 
-const CurrentWeather = ({ weatherData, setDefaultLocation }) => {
+const CurrentWeather = ({ weatherData }) => {
   const date = new Date(weatherData.dt * 1000);
 
   const localDate = date.toLocaleDateString("en-US", {
@@ -21,12 +21,6 @@ const CurrentWeather = ({ weatherData, setDefaultLocation }) => {
 
   const handleDefault = () => {
     setDefault({
-      lat: weatherData.coord.lat,
-      lon: weatherData.coord.lon,
-      name: weatherData.name,
-      country: weatherData.sys.country,
-    });
-    setDefaultLocation({
       lat: weatherData.coord.lat,
       lon: weatherData.coord.lon,
       name: weatherData.name,

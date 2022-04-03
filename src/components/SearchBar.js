@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { setSelected } from "../storage";
 
 const SearchBar = ({ setLocation, favorites }) => {
   const [search, setSearch] = useState("");
@@ -46,6 +47,11 @@ const SearchBar = ({ setLocation, favorites }) => {
               className="hover:bg-slate-400 w-full text-center cursor-pointer"
               onClick={e => {
                 e.preventDefault();
+                setSelected({
+                  name: location.name,
+                  state: location.state,
+                  country: location.country,
+                });
                 setLocation({ lat: location.lat, lon: location.lon });
                 setOpen(false);
                 setLocationList([]);

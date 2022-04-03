@@ -11,7 +11,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { getDefault } from "./storage";
+import { getDefault, setCurrent } from "./storage";
 import Loader from "./components/Loader";
 
 ChartJS.register(
@@ -26,10 +26,6 @@ ChartJS.register(
 
 const App = () => {
   const [location, setLocation] = useState();
-  const [defaultLocation, setDefaultLocation] = useState({
-    lat: 43.65107,
-    lon: -79.347015,
-  });
   const [loading, setLoading] = useState(true);
 
   //const [metric, setMetric] = useState(true);
@@ -51,7 +47,7 @@ const App = () => {
 
   const searchComponent = (
     <div className="h-screen flex flex-col justify-center">
-      <SearchBar defaultLocation={defaultLocation} setLocation={setLocation} />
+      <SearchBar setLocation={setLocation} />
       <div className="text-center text-white">
         Search by entering the name of a city
       </div>
@@ -60,7 +56,7 @@ const App = () => {
 
   const weatherComponent = (
     <>
-      <SearchBar defaultLocation={defaultLocation} setLocation={setLocation} />
+      <SearchBar setLocation={setLocation} />
       <Weather location={location} />
     </>
   );
