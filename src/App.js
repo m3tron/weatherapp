@@ -11,8 +11,9 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { getDefault, setCurrent } from "./storage";
+import { getDefault, getFavorites } from "./storage";
 import Loader from "./components/Loader";
+import Menu from "./components/Menu";
 
 ChartJS.register(
   CategoryScale,
@@ -27,13 +28,19 @@ ChartJS.register(
 const App = () => {
   const [location, setLocation] = useState();
   const [loading, setLoading] = useState(true);
+  const [favoriteLocations, setFavoriteLocations] = useState(getFavorites);
+  const [defaultLocation, setDefaultLocation] = useState(getDefault);
 
   //const [metric, setMetric] = useState(true);
 
   useEffect(() => {
-    setLocation(getDefault);
+    if (defaultLocation) setLocation(defaultLocation);
     setLoading(false);
-  }, []);
+  }, [defaultLocation]);
+
+  useEffect(() => {
+    if (location) setLoading(false);
+  }, [location]);
 
   // use to get user location
   // const getCurrentLocation = () => {
@@ -46,25 +53,35 @@ const App = () => {
   // };
 
   const searchComponent = (
-    <div className="h-screen flex flex-col justify-center">
-      <SearchBar setLocation={setLocation} />
-      <div className="text-center text-white">
-        Search by entering the name of a city
-      </div>
+    <div className="h-screen flex">
+      <SearchBar
+        setLocation={setLocation}
+        favoriteLocations={favoriteLocations}
+        setLoading={setLoading}
+      />
     </div>
   );
 
   const weatherComponent = (
     <>
-      <SearchBar setLocation={setLocation} />
-      <Weather location={location} />
+      <Menu
+        setLocation={setLocation}
+        favoriteLocations={favoriteLocations}
+        setLoading={setLoading}
+      />
+      <Weather
+        location={location}
+        setDefaultLocation={setDefaultLocation}
+        favoriteLocations={favoriteLocations}
+        setFavoriteLocations={setFavoriteLocations}
+        loading={loading}
+        setLoading={setLoading}
+      />
     </>
   );
 
   return (
-    <div className="bg-gradient-to-br bg-fixed from-sky-500 to-indigo-500 pb-4 ">
-      {loading ? <Loader /> : !location ? searchComponent : weatherComponent}
-    </div>
+    <>{loading ? <Loader /> : !location ? searchComponent : weatherComponent}</>
   );
 };
 

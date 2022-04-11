@@ -1,6 +1,6 @@
-import { setDefault } from "../storage";
+import { setDefault, setFavorites } from "../storage";
 
-const CurrentWeather = ({ weatherData }) => {
+const CurrentWeather = ({ weatherData, location }) => {
   const date = new Date(weatherData.dt * 1000);
 
   const localDate = date.toLocaleDateString("en-US", {
@@ -15,21 +15,23 @@ const CurrentWeather = ({ weatherData }) => {
     hour12: true,
   });
 
-  const addFavorite = () => {
-    console.log("favorited");
-  };
+  // const addFavorite = () => {
+  //   const favorites = !getFavorites ? [] : getFavorites;
+  //   console.log(getFavorites);
+  //   //favorites.push(getSelected);
+  //   console.log(favorites);
+
+  //   setFavorites([getSelected, ...favorites]);
+  // };
 
   const handleDefault = () => {
-    setDefault({
-      lat: weatherData.coord.lat,
-      lon: weatherData.coord.lon,
-      name: weatherData.name,
-      country: weatherData.sys.country,
-    });
+    console.log(location);
+
+    setDefault(location);
   };
 
   return (
-    <div className="text-white flex flex-col p-4">
+    <div className="text-white flex flex-col p-4 pt-12">
       <div className="flex flex-col">
         <div className="flex justify-between">
           <span>{localDate}</span>
@@ -38,7 +40,7 @@ const CurrentWeather = ({ weatherData }) => {
         <span className="text-6xl flex justify-between items-center">
           {weatherData.main.temp.toFixed(1)}&#x2103;
           <img
-            src={`${process.env.REACT_APP_ICON_URL}${weatherData.weather[0].icon}@2x.png`}
+            src={`http://openweathermap.org/img/wn/${weatherData.weather[0].icon}@2x.png`}
             alt="weather icon"
           />
         </span>
@@ -70,7 +72,7 @@ const CurrentWeather = ({ weatherData }) => {
               <span className="text-[0.6rem]">Add to Favorites</span>
               <i
                 className="fa-solid fa-heart text-red-500 text-xl p-2 cursor-pointer"
-                onClick={addFavorite}
+                // onClick={addFavorite}
               />
             </div>
           </span>

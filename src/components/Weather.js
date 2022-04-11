@@ -31,11 +31,12 @@ const Weather = ({ location, setDefaultLocation }) => {
   }, [location]);
 
   return (
-    <div className="md:w-[768px] md:mx-auto">
+    <div className="pb-2 md:w-[768px] md:mx-auto">
       <div>
         {weatherData && (
           <CurrentWeather
             weatherData={weatherData}
+            location={location}
             setDefaultLocation={setDefaultLocation}
           />
         )}

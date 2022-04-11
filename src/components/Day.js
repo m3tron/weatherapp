@@ -20,7 +20,7 @@ const Day = ({ daily }) => {
         <div className="flex items-center">
           <span>{(daily.pop * 100).toFixed(0)}%</span>
           <img
-            src={`${process.env.REACT_APP_ICON_URL}${daily.weather[0].icon}@2x.png`}
+            src={`http://openweathermap.org/img/wn/${daily.weather[0].icon}@2x.png`}
             alt="Daily weather icon"
           />
           <div className="grid grid-cols-2 grid-rows-2">
