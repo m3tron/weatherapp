@@ -65,8 +65,9 @@ const App = () => {
   const weatherComponent = (
     <>
       <Menu
-        setLocation={setLocation}
         favoriteLocations={favoriteLocations}
+        defaultLocation={defaultLocation}
+        setLocation={setLocation}
         setLoading={setLoading}
       />
       <Weather

@@ -58,18 +58,20 @@ const CurrentWeather = ({ weatherData, location }) => {
             {weatherData.main.temp_max.toFixed(1)}&#x2103; /{" "}
             <i className="fa-solid fa-arrow-down mr-1" />
             {weatherData.main.temp_min.toFixed(1)}&#x2103;
-          </span>
-          <span className="text-right">
-            {weatherData.name}
             <div>
-              <span className="text-[0.6rem]">Set to Default</span>
               <i
                 className="fa-solid fa-star text-yellow-500 text-xl p-2 cursor-pointer"
                 onClick={handleDefault}
               />
+              <span className="text-[0.6rem] align-middle">Set to Default</span>
             </div>
+          </span>
+          <span className="text-right">
+            {weatherData.name}
             <div>
-              <span className="text-[0.6rem]">Add to Favorites</span>
+              <span className="text-[0.6rem] align-middle">
+                Add to Favorites
+              </span>
               <i
                 className="fa-solid fa-heart text-red-500 text-xl p-2 cursor-pointer"
                 // onClick={addFavorite}
