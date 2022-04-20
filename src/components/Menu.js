@@ -6,17 +6,19 @@ const Menu = ({ setLocation, setLoading }) => {
 
   return (
     <>
-      <div
-        className={`top-4 right-4 z-50 cursor-pointer ${
-          !showMenu ? "absolute" : "fixed"
-        }`}
-        onClick={() => setShowMenu(!showMenu)}
-      >
-        {!showMenu ? (
-          <i className="fa-solid fa-magnifying-glass text-white"></i>
-        ) : (
-          <i className="fa-solid fa-xmark text-white"></i>
-        )}
+      <div className="md:w-[768px]">
+        <div
+          className={`top-4 right-4 z-50 cursor-pointer ${
+            !showMenu ? "absolute" : "fixed"
+          }`}
+          onClick={() => setShowMenu(!showMenu)}
+        >
+          {!showMenu ? (
+            <i className="fa-solid fa-magnifying-glass text-white"></i>
+          ) : (
+            <i className="fa-solid fa-xmark text-white"></i>
+          )}
+        </div>
       </div>
       <div
         className={` ${
