@@ -1,4 +1,4 @@
-import { setDefault, setFavorites } from "../storage";
+import { setDefault, setFavorites, location } from "../storage";
 
 const CurrentWeather = ({
   weatherData,
@@ -21,14 +21,23 @@ const CurrentWeather = ({
     hour12: true,
   });
 
+  const isFavorite = favoriteLocations.includes(location);
+
   const handleDefault = () => {
     setDefault(location);
     setDefaultLocation(location);
   };
 
   const handleFavorite = () => {
-    setFavorites([...favoriteLocations, location]);
-    setFavoriteLocations([...favoriteLocations, location]);
+    if (isFavorite) {
+      setFavorites(favoriteLocations.filter(favorite => favorite !== location));
+      setFavoriteLocations(
+        favoriteLocations.filter(favorite => favorite !== location)
+      );
+    } else {
+      setFavorites([...favoriteLocations, location]);
+      setFavoriteLocations([...favoriteLocations, location]);
+    }
   };
 
   return (
@@ -71,10 +80,12 @@ const CurrentWeather = ({
             {weatherData.name}
             <div>
               <span className="text-[0.6rem] align-middle">
-                Add to Favorites
+                {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
               </span>
               <i
-                className="fa-solid fa-heart text-red-500 text-xl p-2 cursor-pointer"
+                className={`fa-solid fa-heart text-xl p-2 cursor-pointer ${
+                  isFavorite ? "text-white" : "text-red-500"
+                }`}
                 onClick={handleFavorite}
               />
             </div>
