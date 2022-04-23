@@ -5,7 +5,12 @@ import HourlyWeather from "./HourlyWeather";
 import DailyWeather from "./DailyWeather";
 import Details from "./Details";
 
-const Weather = ({ location, setDefaultLocation }) => {
+const Weather = ({
+  location,
+  setDefaultLocation,
+  favoriteLocations,
+  setFavoriteLocations,
+}) => {
   const [weatherData, setWeatherData] = useState();
   const [forecastData, setForecastData] = useState();
 
@@ -38,6 +43,8 @@ const Weather = ({ location, setDefaultLocation }) => {
             weatherData={weatherData}
             location={location}
             setDefaultLocation={setDefaultLocation}
+            favoriteLocations={favoriteLocations}
+            setFavoriteLocations={setFavoriteLocations}
           />
         )}
       </div>

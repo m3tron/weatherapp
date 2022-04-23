@@ -42,6 +42,10 @@ const App = () => {
     if (location) setLoading(false);
   }, [location]);
 
+  useEffect(() => {
+    if (!favoriteLocations) setFavoriteLocations([]);
+  }, [favoriteLocations]);
+
   // use to get user location
   // const getCurrentLocation = () => {
   //   navigator.geolocation.getCurrentPosition(position => {
@@ -69,6 +73,7 @@ const App = () => {
         defaultLocation={defaultLocation}
         setLocation={setLocation}
         setLoading={setLoading}
+        location={location}
       />
       <Weather
         location={location}

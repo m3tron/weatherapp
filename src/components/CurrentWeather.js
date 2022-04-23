@@ -1,6 +1,12 @@
 import { setDefault, setFavorites } from "../storage";
 
-const CurrentWeather = ({ weatherData, location }) => {
+const CurrentWeather = ({
+  weatherData,
+  location,
+  setDefaultLocation,
+  setFavoriteLocations,
+  favoriteLocations,
+}) => {
   const date = new Date(weatherData.dt * 1000);
 
   const localDate = date.toLocaleDateString("en-US", {
@@ -15,23 +21,18 @@ const CurrentWeather = ({ weatherData, location }) => {
     hour12: true,
   });
 
-  // const addFavorite = () => {
-  //   const favorites = !getFavorites ? [] : getFavorites;
-  //   console.log(getFavorites);
-  //   //favorites.push(getSelected);
-  //   console.log(favorites);
-
-  //   setFavorites([getSelected, ...favorites]);
-  // };
-
   const handleDefault = () => {
-    console.log(location);
-
     setDefault(location);
+    setDefaultLocation(location);
+  };
+
+  const handleFavorite = () => {
+    setFavorites([...favoriteLocations, location]);
+    setFavoriteLocations([...favoriteLocations, location]);
   };
 
   return (
-    <div className="text-white flex flex-col p-4 pt-12">
+    <div className="text-white flex flex-col p-4 pt-8">
       <div className="flex flex-col">
         <div className="flex justify-between">
           <span>{localDate}</span>
@@ -74,7 +75,7 @@ const CurrentWeather = ({ weatherData, location }) => {
               </span>
               <i
                 className="fa-solid fa-heart text-red-500 text-xl p-2 cursor-pointer"
-                // onClick={addFavorite}
+                onClick={handleFavorite}
               />
             </div>
           </span>
