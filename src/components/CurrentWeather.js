@@ -1,8 +1,9 @@
-import { setDefault, setFavorites, location } from "../storage";
+import { setDefault, setFavorites } from "../storage";
 
 const CurrentWeather = ({
   weatherData,
   location,
+  defaultLocation,
   setDefaultLocation,
   setFavoriteLocations,
   favoriteLocations,
@@ -20,6 +21,8 @@ const CurrentWeather = ({
     minute: "numeric",
     hour12: true,
   });
+
+  const isDefault = defaultLocation === location;
 
   const isFavorite = favoriteLocations.includes(location);
 
@@ -68,13 +71,17 @@ const CurrentWeather = ({
             {weatherData.main.temp_max.toFixed(1)}&#x2103; /{" "}
             <i className="fa-solid fa-arrow-down mr-1" />
             {weatherData.main.temp_min.toFixed(1)}&#x2103;
-            <div>
-              <i
-                className="fa-solid fa-star text-yellow-500 text-xl p-2 cursor-pointer"
-                onClick={handleDefault}
-              />
-              <span className="text-[0.6rem] align-middle">Set to Default</span>
-            </div>
+            {!isDefault && (
+              <div>
+                <i
+                  className="fa-solid fa-star text-yellow-500 text-xl p-2 cursor-pointer"
+                  onClick={handleDefault}
+                />
+                <span className="text-[0.6rem] align-middle">
+                  Set to Default
+                </span>
+              </div>
+            )}
           </span>
           <span className="text-right">
             {weatherData.name}
@@ -84,7 +91,7 @@ const CurrentWeather = ({
               </span>
               <i
                 className={`fa-solid fa-heart text-xl p-2 cursor-pointer ${
-                  isFavorite ? "text-white" : "text-red-500"
+                  isFavorite ? "text-red-500" : "text-white"
                 }`}
                 onClick={handleFavorite}
               />

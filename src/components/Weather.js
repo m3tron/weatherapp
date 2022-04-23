@@ -7,6 +7,7 @@ import Details from "./Details";
 
 const Weather = ({
   location,
+  defaultLocation,
   setDefaultLocation,
   favoriteLocations,
   setFavoriteLocations,
@@ -42,6 +43,7 @@ const Weather = ({
           <CurrentWeather
             weatherData={weatherData}
             location={location}
+            defaultLocation={defaultLocation}
             setDefaultLocation={setDefaultLocation}
             favoriteLocations={favoriteLocations}
             setFavoriteLocations={setFavoriteLocations}

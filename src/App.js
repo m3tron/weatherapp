@@ -77,6 +77,7 @@ const App = () => {
       />
       <Weather
         location={location}
+        defaultLocation={defaultLocation}
         setDefaultLocation={setDefaultLocation}
         favoriteLocations={favoriteLocations}
         setFavoriteLocations={setFavoriteLocations}
