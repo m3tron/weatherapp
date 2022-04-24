@@ -5,7 +5,7 @@ const Landing = ({ setLocation, favoriteLocations, setLoading }) => {
     <div className="h-screen flex flex-col">
       <SearchBar setLocation={setLocation} setLoading={setLoading} />
 
-      {favoriteLocations.length !== 0 && (
+      {favoriteLocations.length > 0 && (
         <div className="text-white text-center w-screen md:max-w-[768px] md:mx-auto">
           <div className="underline mt-4 underline-offset-4">
             Favorite Locations

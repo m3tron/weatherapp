@@ -13,20 +13,24 @@ const CurrentWeather = ({
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    if (
-      defaultLocation.lat === location.lat &&
-      defaultLocation.lon === location.lon
-    )
-      setIsDefault(true);
-
-    if (
-      favoriteLocations.find(
-        favoriteLocation =>
-          favoriteLocation.lon === location.lon &&
-          favoriteLocation.lat === location.lat
+    if (location && defaultLocation) {
+      if (
+        defaultLocation.lat === location.lat &&
+        defaultLocation.lon === location.lon
       )
-    )
-      setIsFavorite(true);
+        setIsDefault(true);
+    }
+
+    if (location && favoriteLocations.length > 0) {
+      if (
+        favoriteLocations.find(
+          favoriteLocation =>
+            favoriteLocation.lon === location.lon &&
+            favoriteLocation.lat === location.lat
+        )
+      )
+        setIsFavorite(true);
+    }
   }, [defaultLocation, location, favoriteLocations]);
 
   const date = new Date(weatherData.dt * 1000);

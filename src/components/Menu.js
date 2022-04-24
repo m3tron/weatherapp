@@ -59,21 +59,25 @@ const Menu = ({
             </>
           )}
 
-          <div className="underline mt-4 underline-offset-4">
-            Favorite Locations
-          </div>
-          {favoriteLocations.map(favoriteLocation => (
-            <div
-              key={favoriteLocations.indexOf(favoriteLocation)}
-              className="cursor-pointer p-2 my-2 mx-4 bg-black/30 rounded-lg"
-              onClick={() => {
-                setLocation(favoriteLocation);
-                setShowMenu(false);
-              }}
-            >
-              {`${favoriteLocation.name}, ${favoriteLocation.state}, ${favoriteLocation.country}`}
-            </div>
-          ))}
+          {favoriteLocations.length > 0 && (
+            <>
+              <div className="underline mt-4 underline-offset-4">
+                Favorite Locations
+              </div>
+              {favoriteLocations.map(favoriteLocation => (
+                <div
+                  key={favoriteLocations.indexOf(favoriteLocation)}
+                  className="cursor-pointer p-2 my-2 mx-4 bg-black/30 rounded-lg"
+                  onClick={() => {
+                    setLocation(favoriteLocation);
+                    setShowMenu(false);
+                  }}
+                >
+                  {`${favoriteLocation.name}, ${favoriteLocation.state}, ${favoriteLocation.country}`}
+                </div>
+              ))}
+            </>
+          )}
         </div>
       </div>
     </>
