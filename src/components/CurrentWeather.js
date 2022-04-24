@@ -27,7 +27,7 @@ const CurrentWeather = ({
       )
     )
       setIsFavorite(true);
-  }, [defaultLocation, favoriteLocations, location]);
+  }, [defaultLocation, location, favoriteLocations]);
 
   const date = new Date(weatherData.dt * 1000);
 
@@ -46,17 +46,30 @@ const CurrentWeather = ({
   const handleDefault = () => {
     setDefault(location);
     setDefaultLocation(location);
+    setIsDefault(true);
   };
 
   const handleFavorite = () => {
     if (isFavorite) {
-      setFavorites(favoriteLocations.filter(favorite => favorite !== location));
-      setFavoriteLocations(
-        favoriteLocations.filter(favorite => favorite !== location)
+      setFavorites(
+        favoriteLocations.filter(
+          favoriteLocation =>
+            favoriteLocation.lon !== location.lon &&
+            favoriteLocation.lat !== location.lat
+        )
       );
+      setFavoriteLocations(
+        favoriteLocations.filter(
+          favoriteLocation =>
+            favoriteLocation.lon !== location.lon &&
+            favoriteLocation.lat !== location.lat
+        )
+      );
+      setIsFavorite(false);
     } else {
       setFavorites([...favoriteLocations, location]);
       setFavoriteLocations([...favoriteLocations, location]);
+      setIsFavorite(true);
     }
   };
 
