@@ -6,7 +6,6 @@ const Menu = ({
   setLoading,
   defaultLocation,
   favoriteLocations,
-  location,
 }) => {
   const [showMenu, setShowMenu] = useState(false);
 
@@ -45,14 +44,21 @@ const Menu = ({
         </div>
 
         <div className="text-white text-center w-screen md:max-w-[768px] md:mx-auto">
-          <div className="underline underline-offset-4">Default Location</div>
-          <div
-            className="cursor-pointer p-2 my-2 mx-4 bg-black/30 rounded-lg"
-            onClick={() => {
-              setLocation(defaultLocation);
-              setShowMenu(false);
-            }}
-          >{`${defaultLocation.name}, ${defaultLocation.state}, ${defaultLocation.country}`}</div>
+          {defaultLocation && (
+            <>
+              <div className="underline underline-offset-4">
+                Default Location
+              </div>
+              <div
+                className="cursor-pointer p-2 my-2 mx-4 bg-black/30 rounded-lg"
+                onClick={() => {
+                  setLocation(defaultLocation);
+                  setShowMenu(false);
+                }}
+              >{`${defaultLocation.name}, ${defaultLocation.state}, ${defaultLocation.country}`}</div>
+            </>
+          )}
+
           <div className="underline mt-4 underline-offset-4">
             Favorite Locations
           </div>

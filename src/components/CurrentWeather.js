@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { setDefault, setFavorites } from "../storage";
 
 const CurrentWeather = ({
@@ -8,6 +9,26 @@ const CurrentWeather = ({
   setFavoriteLocations,
   favoriteLocations,
 }) => {
+  const [isDefault, setIsDefault] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    if (
+      defaultLocation.lat === location.lat &&
+      defaultLocation.lon === location.lon
+    )
+      setIsDefault(true);
+
+    if (
+      favoriteLocations.find(
+        favoriteLocation =>
+          favoriteLocation.lon === location.lon &&
+          favoriteLocation.lat === location.lat
+      )
+    )
+      setIsFavorite(true);
+  }, [defaultLocation, favoriteLocations, location]);
+
   const date = new Date(weatherData.dt * 1000);
 
   const localDate = date.toLocaleDateString("en-US", {
@@ -21,10 +42,6 @@ const CurrentWeather = ({
     minute: "numeric",
     hour12: true,
   });
-
-  const isDefault = defaultLocation === location;
-
-  const isFavorite = favoriteLocations.includes(location);
 
   const handleDefault = () => {
     setDefault(location);
