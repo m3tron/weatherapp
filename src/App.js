@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import SearchBar from "./components/SearchBar";
 import Weather from "./components/Weather";
 import {
   Chart as ChartJS,
@@ -14,6 +13,7 @@ import {
 import { getDefault, getFavorites } from "./storage";
 import Loader from "./components/Loader";
 import Menu from "./components/Menu";
+import Landing from "./components/Landing";
 
 ChartJS.register(
   CategoryScale,
@@ -42,6 +42,10 @@ const App = () => {
     if (location) setLoading(false);
   }, [location]);
 
+  useEffect(() => {
+    if (!favoriteLocations) setFavoriteLocations([]);
+  }, [favoriteLocations]);
+
   // use to get user location
   // const getCurrentLocation = () => {
   //   navigator.geolocation.getCurrentPosition(position => {
@@ -52,16 +56,6 @@ const App = () => {
   //   });
   // };
 
-  const searchComponent = (
-    <div className="h-screen flex">
-      <SearchBar
-        setLocation={setLocation}
-        favoriteLocations={favoriteLocations}
-        setLoading={setLoading}
-      />
-    </div>
-  );
-
   const weatherComponent = (
     <>
       <Menu
@@ -69,9 +63,11 @@ const App = () => {
         defaultLocation={defaultLocation}
         setLocation={setLocation}
         setLoading={setLoading}
+        location={location}
       />
       <Weather
         location={location}
+        defaultLocation={defaultLocation}
         setDefaultLocation={setDefaultLocation}
         favoriteLocations={favoriteLocations}
         setFavoriteLocations={setFavoriteLocations}
@@ -82,7 +78,19 @@ const App = () => {
   );
 
   return (
-    <>{loading ? <Loader /> : !location ? searchComponent : weatherComponent}</>
+    <>
+      {loading ? (
+        <Loader />
+      ) : !location ? (
+        <Landing
+          setLocation={setLocation}
+          favoriteLocations={favoriteLocations}
+          setLoading={setLoading}
+        />
+      ) : (
+        weatherComponent
+      )}
+    </>
   );
 };
 

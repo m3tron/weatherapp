@@ -1,6 +1,34 @@
+import { useState, useEffect } from "react";
 import { setDefault, setFavorites } from "../storage";
 
-const CurrentWeather = ({ weatherData, location }) => {
+const CurrentWeather = ({
+  weatherData,
+  location,
+  defaultLocation,
+  setDefaultLocation,
+  setFavoriteLocations,
+  favoriteLocations,
+}) => {
+  const [isDefault, setIsDefault] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    if (
+      defaultLocation.lat === location.lat &&
+      defaultLocation.lon === location.lon
+    )
+      setIsDefault(true);
+
+    if (
+      favoriteLocations.find(
+        favoriteLocation =>
+          favoriteLocation.lon === location.lon &&
+          favoriteLocation.lat === location.lat
+      )
+    )
+      setIsFavorite(true);
+  }, [defaultLocation, favoriteLocations, location]);
+
   const date = new Date(weatherData.dt * 1000);
 
   const localDate = date.toLocaleDateString("en-US", {
@@ -15,23 +43,25 @@ const CurrentWeather = ({ weatherData, location }) => {
     hour12: true,
   });
 
-  // const addFavorite = () => {
-  //   const favorites = !getFavorites ? [] : getFavorites;
-  //   console.log(getFavorites);
-  //   //favorites.push(getSelected);
-  //   console.log(favorites);
-
-  //   setFavorites([getSelected, ...favorites]);
-  // };
-
   const handleDefault = () => {
-    console.log(location);
-
     setDefault(location);
+    setDefaultLocation(location);
+  };
+
+  const handleFavorite = () => {
+    if (isFavorite) {
+      setFavorites(favoriteLocations.filter(favorite => favorite !== location));
+      setFavoriteLocations(
+        favoriteLocations.filter(favorite => favorite !== location)
+      );
+    } else {
+      setFavorites([...favoriteLocations, location]);
+      setFavoriteLocations([...favoriteLocations, location]);
+    }
   };
 
   return (
-    <div className="text-white flex flex-col p-4 pt-12">
+    <div className="text-white flex flex-col p-4 pt-8">
       <div className="flex flex-col">
         <div className="flex justify-between">
           <span>{localDate}</span>
@@ -58,23 +88,29 @@ const CurrentWeather = ({ weatherData, location }) => {
             {weatherData.main.temp_max.toFixed(1)}&#x2103; /{" "}
             <i className="fa-solid fa-arrow-down mr-1" />
             {weatherData.main.temp_min.toFixed(1)}&#x2103;
-            <div>
-              <i
-                className="fa-solid fa-star text-yellow-500 text-xl p-2 cursor-pointer"
-                onClick={handleDefault}
-              />
-              <span className="text-[0.6rem] align-middle">Set to Default</span>
-            </div>
+            {!isDefault && (
+              <div>
+                <i
+                  className="fa-solid fa-star text-yellow-500 text-xl p-2 cursor-pointer"
+                  onClick={handleDefault}
+                />
+                <span className="text-[0.6rem] align-middle">
+                  Set to Default
+                </span>
+              </div>
+            )}
           </span>
           <span className="text-right">
             {weatherData.name}
             <div>
               <span className="text-[0.6rem] align-middle">
-                Add to Favorites
+                {isFavorite ? "Remove from Favorites" : "Add to Favorites"}
               </span>
               <i
-                className="fa-solid fa-heart text-red-500 text-xl p-2 cursor-pointer"
-                // onClick={addFavorite}
+                className={`fa-solid fa-heart text-xl p-2 cursor-pointer ${
+                  isFavorite ? "text-red-500" : "text-white"
+                }`}
+                onClick={handleFavorite}
               />
             </div>
           </span>
