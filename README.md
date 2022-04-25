@@ -10,8 +10,9 @@ An application that displays weather information for a given city.
 
 ## Getting started
 
-- Clone this repo: `git clone https://github.com/m3tron/weatherapp.git`
-- Install dependencies: `npm install`
+- Clone this repo: `git clone https://github.com/m3tron/weatherapp.git`.
+- Navigate to the cloned folder.
+- Install dependencies: `npm install`.
 
 ## Running app locally
 
